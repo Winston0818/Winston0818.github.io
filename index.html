@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>今天吃什么？</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+
+        .recipe-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .recipe-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .recipe-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .recipe-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .recipe-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .rolling .recipe-name {
+            animation: rollingText 0.1s linear infinite;
+        }
+
+        @keyframes rollingText {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .random-btn {
+            width: 100%;
+            padding: 18px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .random-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .random-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .random-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-section {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .filter-title {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-tag.active {
+            background: #fff;
+            color: #764ba2;
+            font-weight: 500;
+        }
+
+        .recipe-list-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .recipe-list-btn:active {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            max-height: 70vh;
+            border-radius: 24px 24px 0 0;
+            padding: 25px;
+            animation: slideUp 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: none;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .recipe-item {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .recipe-item:active {
+            transform: scale(0.95);
+            background: #e9ecef;
+        }
+
+        .recipe-item-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .recipe-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .recipe-item-category {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        .history-section {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .history-title {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .history-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .history-tag {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍽️ 今天吃什么？</h1>
+        <p>不知道吃什么？让命运来决定吧！</p>
+    </div>
+
+    <div class="recipe-card" id="recipeCard">
+        <div class="recipe-icon" id="recipeIcon">🎲</div>
+        <div class="recipe-name" id="recipeName">点击按钮开始</div>
+        <div class="recipe-category" id="recipeCategory" style="display: none;">准备中</div>
+        <div class="recipe-desc" id="recipeDesc">点击下方按钮，随机抽取今日菜谱</div>
+    </div>
+
+    <div class="btn-container">
+        <button class="random-btn" id="randomBtn" onclick="startRandom()">🎲 随机选菜</button>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-title">选择分类</div>
+        <div class="filter-tags">
+            <span class="filter-tag active" data-category="all">全部</span>
+            <span class="filter-tag" data-category="家常菜">家常菜</span>
+            <span class="filter-tag" data-category="川菜">川菜</span>
+            <span class="filter-tag" data-category="粤菜">粤菜</span>
+            <span class="filter-tag" data-category="面食">面食</span>
+            <span class="filter-tag" data-category="西餐">西餐</span>
+            <span class="filter-tag" data-category="快餐">快餐</span>
+            <span class="filter-tag" data-category="汤羹">汤羹</span>
+        </div>
+    </div>
+
+    <button class="recipe-list-btn" onclick="showRecipeList()">📋 查看所有菜谱</button>
+
+    <div class="history-section" id="historySection" style="display: none;">
+        <div class="history-title">最近选中</div>
+        <div class="history-tags" id="historyTags"></div>
+    </div>
+
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">📋 菜谱大全</div>
+                <button class="modal-close" onclick="closeRecipeList()">×</button>
+            </div>
+            <div class="recipe-grid" id="recipeGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const recipes = [
+            { name: '宫保鸡丁', category: '川菜', icon: '🍗', desc: '经典川菜，麻辣鲜香，下饭神器' },
+            { name: '麻婆豆腐', category: '川菜', icon: '🥘', desc: '嫩滑豆腐配麻辣酱汁，回味无穷' },
+            { name: '水煮鱼', category: '川菜', icon: '🐟', desc: '鲜嫩鱼片配红油汤底，麻辣过瘾' },
+            { name: '回锅肉', category: '川菜', icon: '🥓', desc: '肥而不腻，川味经典' },
+            { name: '鱼香肉丝', category: '川菜', icon: '🍖', desc: '酸甜微辣，口感丰富' },
+            { name: '红烧肉', category: '家常菜', icon: '🥩', desc: '肥瘦相间，入口即化' },
+            { name: '糖醋排骨', category: '家常菜', icon: '🍖', desc: '酸甜可口，老少皆宜' },
+            { name: '番茄炒蛋', category: '家常菜', icon: '🍳', desc: '简单美味，国民家常菜' },
+            { name: '可乐鸡翅', category: '家常菜', icon: '🍗', desc: '甜香可口，孩子最爱' },
+            { name: '蒜蓉西兰花', category: '家常菜', icon: '🥦', desc: '清爽健康，营养丰富' },
+            { name: '清蒸鲈鱼', category: '粤菜', icon: '🐟', desc: '鲜美清淡，原汁原味' },
+            { name: '白切鸡', category: '粤菜', icon: '🐔', desc: '皮滑肉嫩，粤菜经典' },
+            { name: '叉烧肉', category: '粤菜', icon: '🥓', desc: '甜香入味，港式风味' },
+            { name: '虾饺', category: '粤菜', icon: '🥟', desc: '晶莹剔透，鲜美弹牙' },
+            { name: '干炒牛河', category: '粤菜', icon: '🍜', desc: '镬气十足，经典粤菜' },
+            { name: '兰州拉面', category: '面食', icon: '🍜', desc: '汤清面劲，西北风味' },
+            { name: '炸酱面', category: '面食', icon: '🍝', desc: '酱香浓郁，老北京味道' },
+            { name: '刀削面', category: '面食', icon: '🍜', desc: '面条劲道，口感独特' },
+            { name: '葱油拌面', category: '面食', icon: '🍜', desc: '简单快手，葱香四溢' },
+            { name: '水饺', category: '面食', icon: '🥟', desc: '皮薄馅大，团圆美味' },
+            { name: '牛排', category: '西餐', icon: '🥩', desc: '外焦里嫩，西式经典' },
+            { name: '意大利面', category: '西餐', icon: '🍝', desc: '意式风情，浓郁酱汁' },
+            { name: '披萨', category: '西餐', icon: '🍕', desc: '芝士拉丝，配料丰富' },
+            { name: '汉堡', category: '西餐', icon: '🍔', desc: '层次丰富，饱腹感强' },
+            { name: '沙拉', category: '西餐', icon: '🥗', desc: '清爽健康，低卡美味' },
+            { name: '炸鸡', category: '快餐', icon: '🍗', desc: '外酥里嫩，快乐源泉' },
+            { name: '薯条', category: '快餐', icon: '🍟', desc: '金黄酥脆，休闲必备' },
+            { name: '寿司', category: '快餐', icon: '🍣', desc: '精致美味，日式风情' },
+            { name: '盖浇饭', category: '快餐', icon: '🍛', desc: '简单快捷，营养均衡' },
+            { name: '酸辣汤', category: '汤羹', icon: '🥣', desc: '酸辣开胃，暖胃暖心' },
+            { name: '紫菜蛋花汤', category: '汤羹', icon: '🥣', desc: '清淡鲜美，简单快手' },
+            { name: '排骨汤', category: '汤羹', icon: '🍲', desc: '汤鲜味美，滋补养生' },
+            { name: '玉米浓汤', category: '汤羹', icon: '🌽', desc: '香甜浓郁，西式风味' },
+            { name: '酸菜鱼', category: '川菜', icon: '🐟', desc: '酸爽开胃，鱼肉鲜嫩' },
+            { name: '京酱肉丝', category: '家常菜', icon: '🥓', desc: '酱香浓郁，配饼绝佳' },
+            { name: '咖喱饭', category: '快餐', icon: '🍛', desc: '浓郁咖喱，香气扑鼻' },
+            { name: '蛋炒饭', category: '快餐', icon: '🍚', desc: '粒粒分明，简单美味' },
+            { name: '火锅', category: '川菜', icon: '🍲', desc: '热气腾腾，聚会首选' },
+            { name: '烧烤', category: '快餐', icon: '🍢', desc: '烟火气息，夏日必备' },
+            { name: '煲仔饭', category: '粤菜', icon: '🍚', desc: '锅巴香脆，腊味飘香' },
+            { name: '小笼包', category: '面食', icon: '🥟', desc: '汤汁鲜美，皮薄馅嫩', }
+        ];
+
+        let currentCategory = 'all';
+        let isRolling = false;
+        let history = [];
+
+        const recipeCard = document.getElementById('recipeCard');
+        const recipeIcon = document.getElementById('recipeIcon');
+        const recipeName = document.getElementById('recipeName');
+        const recipeCategory = document.getElementById('recipeCategory');
+        const recipeDesc = document.getElementById('recipeDesc');
+        const randomBtn = document.getElementById('randomBtn');
+
+        // 分类筛选
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+            });
+        });
+
+        function getFilteredRecipes() {
+            if (currentCategory === 'all') return recipes;
+            return recipes.filter(r => r.category === currentCategory);
+        }
+
+        function startRandom() {
+            if (isRolling) return;
+            
+            const filtered = getFilteredRecipes();
+            if (filtered.length === 0) {
+                alert('该分类下没有菜谱');
+                return;
+            }
+
+            isRolling = true;
+            randomBtn.disabled = true;
+            randomBtn.textContent = '🎲 抽取中...';
+            recipeCard.classList.add('rolling');
+            recipeCategory.style.display = 'none';
+
+            let count = 0;
+            const maxCount = 20;
+            const interval = setInterval(() => {
+                const randomRecipe = filtered[Math.floor(Math.random() * filtered.length)];
+                recipeIcon.textContent = randomRecipe.icon;
+                recipeName.textContent = randomRecipe.name;
+                recipeDesc.textContent = randomRecipe.desc;
+                count++;
+
+                if (count >= maxCount) {
+                    clearInterval(interval);
+                    finishRandom(filtered);
+                }
+            }, 100);
+        }
+
+        function finishRandom(filtered) {
+            const finalRecipe = filtered[Math.floor(Math.random() * filtered.length)];
+            
+            recipeIcon.textContent = finalRecipe.icon;
+            recipeName.textContent = finalRecipe.name;
+            recipeCategory.textContent = finalRecipe.category;
+            recipeCategory.style.display = 'inline-block';
+            recipeDesc.textContent = finalRecipe.desc;
+            
+            recipeCard.classList.remove('rolling');
+            recipeCard.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                recipeCard.style.transform = 'scale(1)';
+            }, 200);
+
+            createConfetti();
+            addToHistory(finalRecipe);
+
+            isRolling = false;
+            randomBtn.disabled = false;
+            randomBtn.textContent = '🎲 再选一次';
+        }
+
+        function createConfetti() {
+            const colors = ['#f093fb', '#f5576c', '#667eea', '#764ba2', '#ffd93d', '#6bcb77'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        function addToHistory(recipe) {
+            history.unshift(recipe);
+            if (history.length > 5) history.pop();
+            
+            const historySection = document.getElementById('historySection');
+            const historyTags = document.getElementById('historyTags');
+            
+            historySection.style.display = 'block';
+            historyTags.innerHTML = history.map(r => 
+                `<span class="history-tag">${r.icon} ${r.name}</span>`
+            ).join('');
+        }
+
+        function showRecipeList() {
+            const modal = document.getElementById('recipeModal');
+            const grid = document.getElementById('recipeGrid');
+            
+            grid.innerHTML = recipes.map(r => `
+                <div class="recipe-item" onclick="selectRecipe('${r.name}')">
+                    <div class="recipe-item-icon">${r.icon}</div>
+                    <div class="recipe-item-name">${r.name}</div>
+                    <div class="recipe-item-category">${r.category}</div>
+                </div>
+            `).join('');
+            
+            modal.classList.add('show');
+        }
+
+        function closeRecipeList() {
+            document.getElementById('recipeModal').classList.remove('show');
+        }
+
+        function selectRecipe(name) {
+            const recipe = recipes.find(r => r.name === name);
+            if (recipe) {
+                recipeIcon.textContent = recipe.icon;
+                recipeName.textContent = recipe.name;
+                recipeCategory.textContent = recipe.category;
+                recipeCategory.style.display = 'inline-block';
+                recipeDesc.textContent = recipe.desc;
+                addToHistory(recipe);
+                closeRecipeList();
+            }
+        }
+
+        // 点击模态框背景关闭
+        document.getElementById('recipeModal').addEventListener('click', function(e) {
+            if (e.target === this) closeRecipeList();
+        });
+
+        // 防止移动端双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
