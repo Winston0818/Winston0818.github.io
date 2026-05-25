@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>今天吃什么？</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -33,12 +36,12 @@
             color: #fff;
             font-size: 28px;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 8px;
         }
 
         .header p {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
         }
 
@@ -48,7 +51,7 @@
             padding: 30px 25px;
             width: 100%;
             max-width: 380px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -76,8 +79,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .recipe-name {
@@ -110,9 +120,20 @@
         }
 
         @keyframes rollingText {
-            0% { opacity: 0.5; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.5; transform: scale(0.95); }
+            0% {
+                opacity: 0.5;
+                transform: scale(0.95);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.5;
+                transform: scale(0.95);
+            }
         }
 
         .btn-container {
@@ -150,7 +171,7 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
@@ -167,7 +188,7 @@
         }
 
         .filter-title {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 14px;
             margin-bottom: 12px;
             text-align: center;
@@ -182,8 +203,8 @@
 
         .filter-tag {
             padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
             color: #fff;
             font-size: 13px;
@@ -201,8 +222,8 @@
         .recipe-list-btn {
             margin-top: 20px;
             padding: 12px 24px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             color: #fff;
             font-size: 14px;
@@ -212,7 +233,7 @@
         }
 
         .recipe-list-btn:active {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .modal {
@@ -222,7 +243,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 100;
             align-items: flex-end;
             justify-content: center;
@@ -247,8 +268,13 @@
         }
 
         @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
         }
 
         .modal-header {
@@ -330,6 +356,7 @@
                 opacity: 1;
                 transform: translateY(-100px) rotate(0deg);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(100vh) rotate(720deg);
@@ -343,7 +370,7 @@
         }
 
         .history-title {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 12px;
             margin-bottom: 10px;
             text-align: center;
@@ -358,16 +385,18 @@
 
         .history-tag {
             padding: 6px 12px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 12px;
         }
+
     </style>
 </head>
+
 <body>
     <div class="header">
-        <h1>🍽️ 今天吃什么？</h1>
+        <h1>🥣 今天吃什么？</h1>
         <p>不知道吃什么？让命运来决定吧！</p>
     </div>
 
@@ -386,27 +415,28 @@
         <div class="filter-title">选择分类</div>
         <div class="filter-tags">
             <span class="filter-tag active" data-category="all">全部</span>
-            <span class="filter-tag" data-category="家常菜">家常菜</span>
-            <span class="filter-tag" data-category="川菜">川菜</span>
-            <span class="filter-tag" data-category="粤菜">粤菜</span>
+            <span class="filter-tag" data-category="粗粮">粗粮</span>
+            <span class="filter-tag" data-category="养元粥">养元粥</span>
+            <span class="filter-tag" data-category="复元汤">复元汤</span>
+            <span class="filter-tag" data-category="元气饮">元气饮</span>
+            <span class="filter-tag" data-category="小炒素菜">小炒素菜</span>
+            <span class="filter-tag" data-category="小炒荤菜">小炒荤菜</span>
+            <span class="filter-tag" data-category="蒸菜">蒸菜</span>
             <span class="filter-tag" data-category="面食">面食</span>
-            <span class="filter-tag" data-category="西餐">西餐</span>
-            <span class="filter-tag" data-category="快餐">快餐</span>
-            <span class="filter-tag" data-category="汤羹">汤羹</span>
         </div>
     </div>
 
     <button class="recipe-list-btn" onclick="showRecipeList()">📋 查看所有菜谱</button>
 
-    <div class="history-section" id="historySection" style="display: none;">
+    <!-- <div class="history-section" id="historySection" style="display: none;">
         <div class="history-title">最近选中</div>
         <div class="history-tags" id="historyTags"></div>
-    </div>
+    </div> -->
 
     <div class="modal" id="recipeModal">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title">📋 菜谱大全</div>
+                <div class="modal-title">📋 月子餐菜单</div>
                 <button class="modal-close" onclick="closeRecipeList()">×</button>
             </div>
             <div class="recipe-grid" id="recipeGrid"></div>
@@ -414,49 +444,44 @@
     </div>
 
     <script>
-        const recipes = [
-            { name: '宫保鸡丁', category: '川菜', icon: '🍗', desc: '经典川菜，麻辣鲜香，下饭神器' },
-            { name: '麻婆豆腐', category: '川菜', icon: '🥘', desc: '嫩滑豆腐配麻辣酱汁，回味无穷' },
-            { name: '水煮鱼', category: '川菜', icon: '🐟', desc: '鲜嫩鱼片配红油汤底，麻辣过瘾' },
-            { name: '回锅肉', category: '川菜', icon: '🥓', desc: '肥而不腻，川味经典' },
-            { name: '鱼香肉丝', category: '川菜', icon: '🍖', desc: '酸甜微辣，口感丰富' },
-            { name: '红烧肉', category: '家常菜', icon: '🥩', desc: '肥瘦相间，入口即化' },
-            { name: '糖醋排骨', category: '家常菜', icon: '🍖', desc: '酸甜可口，老少皆宜' },
-            { name: '番茄炒蛋', category: '家常菜', icon: '🍳', desc: '简单美味，国民家常菜' },
-            { name: '可乐鸡翅', category: '家常菜', icon: '🍗', desc: '甜香可口，孩子最爱' },
-            { name: '蒜蓉西兰花', category: '家常菜', icon: '🥦', desc: '清爽健康，营养丰富' },
-            { name: '清蒸鲈鱼', category: '粤菜', icon: '🐟', desc: '鲜美清淡，原汁原味' },
-            { name: '白切鸡', category: '粤菜', icon: '🐔', desc: '皮滑肉嫩，粤菜经典' },
-            { name: '叉烧肉', category: '粤菜', icon: '🥓', desc: '甜香入味，港式风味' },
-            { name: '虾饺', category: '粤菜', icon: '🥟', desc: '晶莹剔透，鲜美弹牙' },
-            { name: '干炒牛河', category: '粤菜', icon: '🍜', desc: '镬气十足，经典粤菜' },
-            { name: '兰州拉面', category: '面食', icon: '🍜', desc: '汤清面劲，西北风味' },
-            { name: '炸酱面', category: '面食', icon: '🍝', desc: '酱香浓郁，老北京味道' },
-            { name: '刀削面', category: '面食', icon: '🍜', desc: '面条劲道，口感独特' },
-            { name: '葱油拌面', category: '面食', icon: '🍜', desc: '简单快手，葱香四溢' },
-            { name: '水饺', category: '面食', icon: '🥟', desc: '皮薄馅大，团圆美味' },
-            { name: '牛排', category: '西餐', icon: '🥩', desc: '外焦里嫩，西式经典' },
-            { name: '意大利面', category: '西餐', icon: '🍝', desc: '意式风情，浓郁酱汁' },
-            { name: '披萨', category: '西餐', icon: '🍕', desc: '芝士拉丝，配料丰富' },
-            { name: '汉堡', category: '西餐', icon: '🍔', desc: '层次丰富，饱腹感强' },
-            { name: '沙拉', category: '西餐', icon: '🥗', desc: '清爽健康，低卡美味' },
-            { name: '炸鸡', category: '快餐', icon: '🍗', desc: '外酥里嫩，快乐源泉' },
-            { name: '薯条', category: '快餐', icon: '🍟', desc: '金黄酥脆，休闲必备' },
-            { name: '寿司', category: '快餐', icon: '🍣', desc: '精致美味，日式风情' },
-            { name: '盖浇饭', category: '快餐', icon: '🍛', desc: '简单快捷，营养均衡' },
-            { name: '酸辣汤', category: '汤羹', icon: '🥣', desc: '酸辣开胃，暖胃暖心' },
-            { name: '紫菜蛋花汤', category: '汤羹', icon: '🥣', desc: '清淡鲜美，简单快手' },
-            { name: '排骨汤', category: '汤羹', icon: '🍲', desc: '汤鲜味美，滋补养生' },
-            { name: '玉米浓汤', category: '汤羹', icon: '🌽', desc: '香甜浓郁，西式风味' },
-            { name: '酸菜鱼', category: '川菜', icon: '🐟', desc: '酸爽开胃，鱼肉鲜嫩' },
-            { name: '京酱肉丝', category: '家常菜', icon: '🥓', desc: '酱香浓郁，配饼绝佳' },
-            { name: '咖喱饭', category: '快餐', icon: '🍛', desc: '浓郁咖喱，香气扑鼻' },
-            { name: '蛋炒饭', category: '快餐', icon: '🍚', desc: '粒粒分明，简单美味' },
-            { name: '火锅', category: '川菜', icon: '🍲', desc: '热气腾腾，聚会首选' },
-            { name: '烧烤', category: '快餐', icon: '🍢', desc: '烟火气息，夏日必备' },
-            { name: '煲仔饭', category: '粤菜', icon: '🍚', desc: '锅巴香脆，腊味飘香' },
-            { name: '小笼包', category: '面食', icon: '🥟', desc: '汤汁鲜美，皮薄馅嫩', }
-        ];
+        const menuMeta = {
+            '粗粮': { icon: '🍚', desc: '主食粗粮，补充能量，搭配正餐更均衡' },
+            '养元粥': { icon: '🥣', desc: '清淡软糯，暖胃易消化' },
+            '复元汤': { icon: '🍲', desc: '温润滋补，适合月子期调养' },
+            '元气饮': { icon: '🍵', desc: '日常饮水搭配，清爽温和' },
+            '小炒素菜': { icon: '🥬', desc: '清爽少油，补充膳食纤维' },
+            '小炒荤菜': { icon: '🥩', desc: '优质蛋白搭配家常做法' },
+            '蒸菜': { icon: '♨️', desc: '清蒸少油，保留食材本味' },
+            '面食': { icon: '🍜', desc: '主食多样，方便自由搭配' }
+        };
+
+        const menuGroups = {
+            '粗粮': '红薯|紫薯|山药|玉米|馄饨|蒸饺|馒头|花卷|红薯饭|糙米饭|黑米饭|红豆米饭|杂粮饭|二米饭|薏仁饭|紫米饭|白米饭|八宝饭'.split('|'),
+
+            '养元粥': '八宝粥|玉米蔬菜粥|南瓜小米粥|山药紫薯粥|桂圆红枣粥|黑米花生粥|薏仁红豆粥|红薯二米粥|糯米桂圆粥|银耳莲子粥|藜麦红枣粥|红糖糯米粥|红枣燕麦粥|黑米红薯粥|什锦蔬菜粥|什锦虾仁粥|香菇鸡丝粥|青菜鸡肉沫粥|黑芝麻燕麦粥|胡萝卜牛肉粥|番茄鳕鱼粥|山药鸡肉片粥|鸡肉燕麦粥|生菜牛肉粥|鱼片生菜粥|南瓜鳕鱼粥|番茄牛肉蔬菜粥|玉米南瓜滑鸡粥|小米红枣百合粥|南瓜燕麦牛奶粥|红豆花生二米粥|银耳雪梨红枣粥'.split('|'),
+            
+            '复元汤': '莲藕海带汤|黄豆芽豆腐汤|海带豆腐汤|茭白香菇汤|莴笋丝瓜汤|干贝冬瓜汤|丝瓜菌菇汤|番茄金针菇汤|海带冬瓜汤|三丝豆苗汤|鱼头豆腐汤|鲫鱼丝瓜汤|乌鸡红枣汤|通草鲫鱼汤|银耳雪梨羹|木瓜西米露|红豆百合莲子汤|南瓜糯米丸子|木瓜红枣花生汤|桂圆红枣汤|木瓜牛奶汤|黑谷物甜羹|五红汤'.split('|'),
+
+            '元气饮': '黑豆水|五红汤|黑豆杜仲水|陈皮炒米水|红糖鸡蛋水|红枣枸杞水|黄芪杜仲茶|玫瑰干菊枣茶|党参黄芪炒米水|通草桂圆枸杞水|苹果无花果水'.split('|'),
+
+            '小炒素菜': '清炒冬瓜|清炒生菜|蚝油生菜|清炒菠菜|清炒莴苣|清炒茭白|清炒南瓜片|素炒藕片|蒜蓉菜心|素炒三丝|地三鲜|香菇油菜|洋葱土豆片|醋溜土豆丝|醋溜娃娃菜|白灼芥兰|茄汁花菜|芹菜炒香干|油焖茭白|白灼秋葵|白灼西兰花|手撕包菜|蒜蓉空心菜|韭菜炒豆芽|芹菜炒腰果|油菜炒白玉菇|荷塘小炒|酱汁杏鲍菇|小白菜炒豆腐|彩椒炒双菇'.split('|'),
+
+            '小炒荤菜': '红烧鸡翅|包菜炒牛肉|红烧带鱼|滑蛋虾仁|白灼鲜虾|黄花菜炒牛肉片|牛肉滑蛋|板栗烧鸡|香菇土豆焖鸡|豆苗炒牛肉|黄瓜炒虾仁|清蒸鲈鱼|藕片炒牛肉|鱿鱼炒荷兰豆|上汤娃娃菜|玉米笋炒虾仁|芹菜炒牛肉|莲藕炒牛肉|虾米炒丝瓜|虾仁玉子豆腐|彩椒炒牛肉|蒜苔炒牛肉|番茄汁牛肉片|蜜汁小鸡腿|双椒海鲜菇炒牛肉|番茄牛腩煲|鲍鱼香菇鸡|芦笋炒牛肉|番茄炒鸡蛋|牛肉末豆角|芦笋炒虾仁|口蘑炒鸡肉|葱烧鸡腿丁|木须鸡蛋|杏鲍菇炒牛肉丝|西芹牛肉片|茭白牛肉丝|牛肉沫炒豌豆'.split('|'),
+
+            '蒸菜': '鸡腿肉蒸南瓜|番茄香菇蒸牛肉|豆芽蒸牛肉|牛肉卷蒸豆皮|牛肉沫蒸豆腐|牛肉珍珠丸|虾仁蒸南瓜|香菇蒸滑鸡|清蒸鲈鱼|花蛤蒸蛋|清蒸黄花鱼|虫草花蒸鸡|丝瓜蒸牛肉片|牛肉末蒸蛋|冬瓜蒸鸡|香菇蒸鲈鱼|牛肉蒸肉饼|丝瓜蒸鸡腿肉|鲫鱼片蒸蛋'.split('|'),
+
+            '面食': '烧麦|饺子|吐司|花卷|鸡蛋饼|蔬菜饼|玉米饼|香蕉饼|南瓜饼|小笼包|蔬菜包|牛肉包|豆沙包|南瓜蒸糕|黑米紫薯糕|红糖发糕|芹菜牛肉饺|香菇鸡丝面|鱼丸清汤面|牛肉青菜面|虾仁菌菇面|番茄鸡蛋面|木耳丝丝面|萝卜丝煎蛋面|裙带菜虾仁面|鲫鱼豆腐汤面|玉米鸡肉馄饨|西葫芦虾仁馄饨'.split('|')
+        };
+
+        const recipes = Object.entries(menuGroups).flatMap(([category, names]) =>
+            names.map((name, index) => ({
+                id: `${category}-${index}`,
+                name,
+                category,
+                icon: menuMeta[category].icon,
+                desc: menuMeta[category].desc
+            }))
+        );
 
         let currentCategory = 'all';
         let isRolling = false;
@@ -471,7 +496,7 @@
 
         // 分类筛选
         document.querySelectorAll('.filter-tag').forEach(tag => {
-            tag.addEventListener('click', function() {
+            tag.addEventListener('click', function () {
                 document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
                 currentCategory = this.dataset.category;
@@ -485,7 +510,7 @@
 
         function startRandom() {
             if (isRolling) return;
-            
+
             const filtered = getFilteredRecipes();
             if (filtered.length === 0) {
                 alert('该分类下没有菜谱');
@@ -516,13 +541,13 @@
 
         function finishRandom(filtered) {
             const finalRecipe = filtered[Math.floor(Math.random() * filtered.length)];
-            
+
             recipeIcon.textContent = finalRecipe.icon;
             recipeName.textContent = finalRecipe.name;
             recipeCategory.textContent = finalRecipe.category;
             recipeCategory.style.display = 'inline-block';
             recipeDesc.textContent = finalRecipe.desc;
-            
+
             recipeCard.classList.remove('rolling');
             recipeCard.style.transform = 'scale(1.05)';
             setTimeout(() => {
@@ -530,7 +555,7 @@
             }, 200);
 
             createConfetti();
-            addToHistory(finalRecipe);
+            // addToHistory(finalRecipe);
 
             isRolling = false;
             randomBtn.disabled = false;
@@ -555,12 +580,12 @@
         function addToHistory(recipe) {
             history.unshift(recipe);
             if (history.length > 5) history.pop();
-            
+
             const historySection = document.getElementById('historySection');
             const historyTags = document.getElementById('historyTags');
-            
+
             historySection.style.display = 'block';
-            historyTags.innerHTML = history.map(r => 
+            historyTags.innerHTML = history.map(r =>
                 `<span class="history-tag">${r.icon} ${r.name}</span>`
             ).join('');
         }
@@ -568,15 +593,15 @@
         function showRecipeList() {
             const modal = document.getElementById('recipeModal');
             const grid = document.getElementById('recipeGrid');
-            
-            grid.innerHTML = recipes.map(r => `
-                <div class="recipe-item" onclick="selectRecipe('${r.name}')">
+
+            grid.innerHTML = recipes.map((r, index) => `
+                <div class="recipe-item" onclick="selectRecipe(${index})">
                     <div class="recipe-item-icon">${r.icon}</div>
                     <div class="recipe-item-name">${r.name}</div>
                     <div class="recipe-item-category">${r.category}</div>
                 </div>
             `).join('');
-            
+
             modal.classList.add('show');
         }
 
@@ -584,27 +609,27 @@
             document.getElementById('recipeModal').classList.remove('show');
         }
 
-        function selectRecipe(name) {
-            const recipe = recipes.find(r => r.name === name);
+        function selectRecipe(index) {
+            const recipe = recipes[index];
             if (recipe) {
                 recipeIcon.textContent = recipe.icon;
                 recipeName.textContent = recipe.name;
                 recipeCategory.textContent = recipe.category;
                 recipeCategory.style.display = 'inline-block';
                 recipeDesc.textContent = recipe.desc;
-                addToHistory(recipe);
+                // addToHistory(recipe);
                 closeRecipeList();
             }
         }
 
         // 点击模态框背景关闭
-        document.getElementById('recipeModal').addEventListener('click', function(e) {
+        document.getElementById('recipeModal').addEventListener('click', function (e) {
             if (e.target === this) closeRecipeList();
         });
 
         // 防止移动端双击缩放
         let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(e) {
+        document.addEventListener('touchend', function (e) {
             const now = Date.now();
             if (now - lastTouchEnd <= 300) {
                 e.preventDefault();
@@ -613,4 +638,5 @@
         }, false);
     </script>
 </body>
+
 </html>
